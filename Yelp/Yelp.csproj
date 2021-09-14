@@ -37,6 +37,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BingMapsRESTToolkit, Version=1.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\BingMapsRESTToolkit.1.1.4\lib\net45\BingMapsRESTToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="DotNetProjects.DataVisualization.Toolkit, Version=6.0.87.0, Culture=neutral, PublicKeyToken=79778c5f2eed289b, processorArchitecture=MSIL">
       <HintPath>packages\DotNetProjects.WpfToolkit.DataVisualization.6.0.87\lib\net40\DotNetProjects.DataVisualization.Toolkit.dll</HintPath>
     </Reference>
@@ -110,6 +113,7 @@
       <DependentUpon>BarGraph.xaml</DependentUpon>
     </Compile>
     <Compile Include="Business.cs" />
+    <Compile Include="BusinessTips.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Friend.cs" />
     <Compile Include="FriendsTips.cs" />

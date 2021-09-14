@@ -36,6 +36,11 @@ namespace Yelp
             barGraph();
         }
 
+        public BarGraph()
+        {
+
+        }
+
 
         public void barGraph()
         {
@@ -44,13 +49,20 @@ namespace Yelp
             checkinGraph.DataContext = graphData;
         }
 
+        public List<KeyValuePair<string, int>> barGraphForOwner(string bid)
+        {
+            List<KeyValuePair<string, int>> graphData = new List<KeyValuePair<string, int>>();
+            graphData = ExecuteQuery(bid);
+            return graphData;
+        }
+
         /// <summary>
         /// Connect to database
         /// </summary>
         /// <returns></returns>
         private string BuildConnectionString()
         {
-            return "Host = localhost; Username = postgres; Database = 'PUT DB NAME HERE'; password = 'PUT PASSWORD HERE'";
+            return "Host = localhost; Username = postgres; Database = DB-NAME; password = DB-PASSWORD";
         }
 
 

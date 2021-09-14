@@ -2,8 +2,13 @@
 using BingMapsRESTToolkit.Extensions;
 using Microsoft.Maps.MapControl.WPF;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using Location = Microsoft.Maps.MapControl.WPF.Location;
+
 
 namespace BingMap
 {
@@ -13,72 +18,129 @@ namespace BingMap
     public partial class MapWindow : Window
     {
         private string BingMapsKey = System.Configuration.ConfigurationManager.AppSettings.Get("BingMapsKey");
-        private string SessionKey;
-        
+        public string SessionKey;
+        private List<object> Obj = new List<object>();
+        BuildMapLocations mapLocations = new BuildMapLocations();
+        CreatePushpin createPushpin = new CreatePushpin();
+        private int i;
+
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
         public MapWindow()
         {
             InitializeComponent();
-            MyMap.CredentialsProvider = new ApplicationIdCredentialsProvider(BingMapsKey);
+            GetSessionKey();
+        }
+
+        /// <summary>
+        /// Contructor for the Yelp project. Accepts a list of objects.
+        /// </summary>
+        /// <param name="obj"></param>
+        public MapWindow(List<object> obj)
+        {
+            this.Obj = obj;
+            InitializeComponent();
+            GetSessionKey();
+        }
+
+        /// <summary>
+        /// Creates a session key for all transactions.
+        /// </summary>
+        private void GetSessionKey()
+        {
+            MyMap.CredentialsProvider = new ApplicationIdCredentialsProvider("INSERT BING MAPS API KEY HERE");
             MyMap.CredentialsProvider.GetCredentials((c) =>
             {
-                SessionKey = c.ApplicationId;
+                this.SessionKey = c.ApplicationId;
             });
 
-          
         }
 
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        /// <summary>
+        /// Builds the maps bases on a list of objects or the search box.
+        /// </summary>
+        public async Task BuildMap()
         {
+            MyMap.Children.Clear();
+            GetSessionKey();
+            createPushpin.EmptyLists();
+            mapLocations.EmptyLists();
+            i = 1;
+
             
-        }
-
-        private async void Search_Click(object sender, RoutedEventArgs e)
-        {
-            if (SearchBox.Text != null)
+            if (SearchBox.Text != "")
             {
-                string key = SessionKey;
-                string tempquery = SearchBox.Text;
+                string tempString = SearchBox.Text;
+                createPushpin.addressList.Add(tempString);
+                createPushpin.toolTip.Add(tempString);
+                var geoRequest = mapLocations.GetGeocode(SessionKey, tempString);
+                await ProcessRequest(geoRequest);
+            }
+            else if (this.Obj.Count() != 0)
+            {
+                var addList = createPushpin.GetAddresses(this.Obj);
+                createPushpin.GetToolTipText(this.Obj);
 
-                var requestGeocode = new GeocodeRequest()
+                foreach (var item in addList)
                 {
-                    Query = tempquery,
-                    IncludeIso2 = true,
-                    MaxResults = 25,
-                    BingMapsKey = key
-                };
-
-                var response = await requestGeocode.Execute();
-
-                UpdateMap(response);
+                    var geoRequest = mapLocations.GetGeocode(SessionKey, item);
+                    await ProcessRequest(geoRequest);
+                }
             }
 
         }
 
-        private void UpdateMap(Response response)
+        /// <summary>
+        /// Process the Geocode Request. Adds locations to map with pushpins.
+        /// </summary>
+        /// <param name="geocodeRequest"></param>
+        public async Task ProcessRequest(GeocodeRequest geocodeRequest)
         {
-            MyMap.Children.Clear();
+            var response = await geocodeRequest.Execute();
+            var loc = mapLocations.GetLocation(response);
 
-            var location = response.ResourceSets[0].Resources[0] as BingMapsRESTToolkit.Location;
-            var latitude = location.GeocodePoints[0].Coordinates[0];
-            var longitude = location.GeocodePoints[0].Coordinates[1];
-            var center = new Microsoft.Maps.MapControl.WPF.Location(latitude, longitude);
-
-            MyMap.SetView(center, 10);
-
-            var loc = new Microsoft.Maps.MapControl.WPF.Location(latitude, longitude);
-
-            MyMap.Children.Add(new Pushpin { Location = loc });
-
-           
+            SetMapView(loc);
 
         }
 
+        /// <summary>
+        /// Adds the pushpin to the map and sets the view to the location rectangle.
+        /// </summary>
+        /// <param name="loc"></param>
+        public void SetMapView(Location loc)
+        {
+                MyMap.Children.Add(new Pushpin() { Location = loc, Content = i, ToolTip = createPushpin.toolTip.ElementAt(i - 1) + " - " + createPushpin.addressList.ElementAt(i - 1)});
+                MyMap.SetView(mapLocations.BuildRectangle());
+                i++;
+
+        }
+
+        /// <summary>
+        /// Puts location that was entered in the search bar on the map.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+            BuildMap();
+        }
+
+        /// <summary>
+        /// Zooms map in.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ZoomIn_Click(object sender, RoutedEventArgs e)
         {
             MyMap.ZoomLevel += .5;
         }
 
+        /// <summary>
+        /// Zooms map out.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ZoomOut_Click(object sender, RoutedEventArgs e)
         {
             MyMap.ZoomLevel -= .5;

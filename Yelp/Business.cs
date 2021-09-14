@@ -24,12 +24,12 @@ namespace Yelp
         public string address { get; set; }
         public string state { get; set; }
         public string city { get; set; }
-        public long zipcode { get; set; }
+        public Int64 zipcode { get; set; }
         public string latitude { get; set; }
         public string longitude { get; set; }
-        public long stars { get; set; }
-        public long numCheckins { get; set; }
-        public long numTips { get; set; }
+        public double stars { get; set; }
+        public double numCheckins { get; set; }
+        public double numTips { get; set; }
         public string isOpen { get; set; }
 
         public string open { get; set; }
@@ -41,7 +41,10 @@ namespace Yelp
 
         public string search { get; set; }
 
-
+        /// <summary>
+        /// Create business for search
+        /// </summary>
+        /// <param name="obj"></param>
         public void createBusiness(List<object> obj)
         {
             businessName = (string)obj[0];
@@ -51,6 +54,30 @@ namespace Yelp
             close = (string)obj[4];
             businessID = (string)obj[5];
             distance = (double)obj[6];
+        }
+
+        /// <summary>
+        /// Create business for owner
+        /// </summary>
+        /// <param name="obj"></param>
+        public void createBusinessOwner(List<object> obj)
+        {
+            businessID = (string)obj[0];
+            businessName = (string)obj[1];
+            address = (string)obj[2];
+            state = (string)obj[3];
+            city = (string)obj[4];
+            zipcode = (Int64)obj[5];
+            stars = (Int64)obj[6];
+            numCheckins = (Int64)obj[7];
+            numTips = (Int64)obj[8];
+            open = (string)obj[9];
+            close = (string)obj[10];
+
+            //dayOfWeek = (string)obj[2];
+            //open = (string)obj[3];
+            //close = (string)obj[4];
+            //distance = (double)obj[6];
         }
 
         /// <summary>

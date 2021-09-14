@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Npgsql;
 using System.ComponentModel;
+using BingMap;
 
 namespace Yelp
 {
@@ -306,11 +307,36 @@ namespace Yelp
                     idList.Items.Add(obj[i]);
                 }
                 
-
                 listPopup.Visibility = Visibility.Visible;
                 listPopup.IsOpen = true;
-                idList.Visibility = Visibility.Visible;
-            
+                idList.Visibility = Visibility.Visible;   
+        }
+
+
+        /// <summary>
+        /// Business owner search.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void searchBusinessNameButton_Click(object sender, RoutedEventArgs e)
+        {
+            ClearScreen();
+            List<object> obj = new List<object>();
+            string SELECT = "businessid";
+            string FROM = "businesstable";
+            string WHERE = "businessname = '" + CurrentBusiness.Text + "'";
+            query.createQuery(SELECT, FROM, WHERE, "id");
+            obj = query.GetObjects();
+            for (int i = 0; i < obj.Count(); i++)
+            {
+                bidList.Items.Add(obj[i]);
+            }
+
+            businessListPopup.Visibility = Visibility.Visible;
+            businessListPopup.IsOpen = true;
+            bidList.Visibility = Visibility.Visible;
+
+
         }
 
         private void populateUserInfo()
@@ -327,6 +353,23 @@ namespace Yelp
             DisplayLatCoord.Text = customer.latitude.ToString();
             DisplayLongCoord.Text = customer.longitude.ToString();
         }
+
+        private void populateBusinessOwnerInfo()
+        {
+            businessName.Text = business.businessName;
+            businessAddress.Text = business.address + ", " + business.city + ", " + business.state + " " + business.zipcode.ToString(); 
+            businessStarsBox.Text = business.stars.ToString();
+            businessCheckinsBox.Text = business.numCheckins.ToString();
+            businessTipsBox.Text = business.numTips.ToString();
+            businessHoursBox.Text = business.open + " " + business.close;
+            //BarGraph barGraph = new BarGraph();
+            //barGraph.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(this.WindowPropertyChanged);
+            //var temp = barGraph.barGraphForOwner(business.businessID);
+            //checkinGraphForOwner.DataContext = barGraph.barGraphForOwner(business.businessID);
+           
+        }
+
+
         private void idList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (idList.SelectedIndex > -1)
@@ -354,6 +397,65 @@ namespace Yelp
                 query.createQuery(SELECT, FROM, WHERE, "friends");
                 populateFriendsTip();
             }
+        }
+
+        /// <summary>
+        /// Business owner selects their business id.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void bidList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (bidList.SelectedIndex > -1)
+            {
+                string SELECT = "distinct businessid, businessname, address, state, city, zipcode, stars, numcheckin, numtips, open, close";
+                string FROM = "businesstable NATURAL JOIN hours";
+                string WHERE = "businessid = '" + bidList.SelectedItem.ToString() + "'";
+                query.createQuery(SELECT, FROM, WHERE, "businessowner");
+
+                //DayOfWeek today = DateTime.Today.DayOfWeek;
+                //query.select = "distinct businessid, BusinessName, Address, dayofweek, open, close, businessid, distance";
+                //query.from = "businesstable NATURAL JOIN hours";
+                //query.where = "businessname = '" + business.businessName + "' AND address ='" + business.address + "' AND dayofweek ='" + today.ToString() + "'";
+                //query.createQuery(query.select, query.from, query.where, "hours");
+
+                business.createBusinessOwner(query.GetObjects());
+                populateBusinessOwnerInfo();
+                bidList.Visibility = Visibility.Collapsed;
+
+                BusinessTips businessTips = new BusinessTips();
+                SELECT = "firstname, tiptext, tipdate, likes";
+                FROM = "businesstable,tip,customer";
+                WHERE = "businesstable.businessid = '" + business.businessID + "'" + " and businesstable.businessid = tip.businessid and tip.userid = customer.userid";
+                query.createQuery(SELECT, FROM, WHERE, "businessTips");
+                populateBusinessTip();
+
+                //SELECT = "c2.firstname, c2.average_stars, c2.yelping_since";
+                //FROM = "customer as c1, friends, customer as c2";
+                //WHERE = "c1.userid = '" + customer.userID + "' and friends.userid = '" + customer.userID + "' and friends.friendid = c2.userid";
+                //query.createQuery(SELECT, FROM, WHERE, "id");
+                //populteFriends();
+
+                //SELECT = "customer.firstname, businesstable.businessname, businesstable.city, tip.tiptext, tip.tipdate";
+                //FROM = "friends, tip, businesstable, customer";
+                //WHERE = "friends.userid = '" + customer.userID + "' and tip.userid = friends.friendid and businesstable.businessid = tip.businessid and customer.userid = friends.friendid and tip.tipdate IN (select MAX(tipdate) date from tip, customer, friends where customer.userid = '" + customer.userID + "' and friends.userid = '" + customer.userID + "' and tip.userid = friends.friendid group by friends.friendid)";
+                //query.createQuery(SELECT, FROM, WHERE, "friends");
+                //populateFriendsTip();
+            }
+        }
+
+        private void populateBusinessTip()
+        {
+            BusinessTips tipList = new BusinessTips();
+            List<object> obj = new List<object>();
+            obj = query.GetObjects();
+            for (int i = 0; i < obj.Count();)
+            {
+                businessTipList.Items.Add(new BusinessTips() { name = (string)obj[i], tipText = (string)obj[i + 1], tipDate =obj[i + 2].ToString(), likes = (long)obj[i + 3] }); ;
+                i = i + 4;
+            }
+            tipList.AddBusinessLastestTips(businessTipList);
+
         }
 
         private void populteFriends()
@@ -861,5 +963,19 @@ namespace Yelp
                 updateBusinessTable();
             }
         }
+
+        private void mapButton_Click(object sender, RoutedEventArgs e)
+        {
+            query.ExeQuery(search.CreateSearchQuery(), "business");
+            List<object> obj = new List<object>();
+            obj = query.GetObjects();
+            MapWindow mapWindow = new MapWindow(obj);
+            mapWindow.BuildMap();
+            mapWindow.Show();
+        }
+
+       
+
+        
     }
 }

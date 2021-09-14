@@ -8,6 +8,7 @@ namespace Yelp
 {
     public class GraphContents
     {
+        // Temp BID = EQq1K0q9VVJm4zYw0NGwfA, City = Scottsdale, Zip = 85260, Name = ADEQ
 
         public Dictionary<int, string> monthList = new Dictionary<int, string>();
         

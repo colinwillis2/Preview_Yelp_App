@@ -17,7 +17,7 @@ namespace Yelp
 
         private string BuildConnectionString()
         {
-            return "Host = localhost; Username = postgres; Database = 'PUT DB NAME HERE'; password = 'PUT PASSWORD HERE'";
+            return "Host = localhost; Username = postgres; Database = DB-NAME; password = DB-PASSWORD";
         }
 
 
@@ -226,6 +226,29 @@ namespace Yelp
                 obj.Add(R.GetString(4));
                 obj.Add(R.GetString(5));
                 obj.Add(R.GetDouble(6));
+            }
+
+            if (type == "businessowner")
+            {
+                obj.Add(R.GetString(0));    // bid
+                obj.Add(R.GetString(1));    // name
+                obj.Add(R.GetString(2));    // address
+                obj.Add(R.GetString(3));    // state
+                obj.Add(R.GetString(4));     // city
+                obj.Add(R.GetInt64(5));     // zipcode 
+                obj.Add(R.GetInt64(6));     // stars
+                obj.Add(R.GetInt64(7));    // checkins
+                obj.Add(R.GetInt64(8));    // tips
+                obj.Add(R.GetString(9));    // open
+                obj.Add(R.GetString(10));    // close
+
+            }
+
+            if (type == "businessTips"){
+                obj.Add(R.GetString(0));
+                obj.Add(R.GetString(1));
+                obj.Add(R.GetTimeStamp(2));
+                obj.Add(R.GetInt64(3));
             }
         }
     }

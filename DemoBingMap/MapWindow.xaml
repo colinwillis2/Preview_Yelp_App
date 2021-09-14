@@ -19,7 +19,7 @@
 
         <StackPanel Grid.Row="1" Margin="0" Orientation="Vertical">
             <Grid>
-                <TextBox x:Name="SearchBox" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Search Maps" materialDesign:HintAssist.IsFloating="False" Background="White" Padding="15 0 25 0" FontSize="16" TextChanged="TextBox_TextChanged"/>
+                <TextBox x:Name="SearchBox" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Search Maps" materialDesign:HintAssist.IsFloating="False" Background="White" Padding="15 0 25 0" FontSize="16"/>
                 <Button HorizontalAlignment="Right" Width="30" Padding="0" Style="{StaticResource MaterialDesignFlatButton}" Click="Search_Click">
                     <materialDesign:PackIcon Kind="Search"/>
                 </Button>
@@ -28,9 +28,11 @@
                 
             </ListBox>
         </StackPanel>
+        
 
-        <bMap:Map Name="MyMap" Mode="Road" Grid.Column="1" Grid.Row="1" ZoomLevel="3" Margin="5" Center="39.41685594755291, -100.80420772503938" CredentialsProvider="wmDPVA9ieovqAKoxMHwk~7uXaUZrUavyrwMM7-s69rQ~ArUBcqwLcVmju1mHC_PmhQm5bZFLaD8Px0pYucc9XQpaNDAqc9F2UWxyLM7cOqRf"
-                  />
+        <bMap:Map x:Name="MyMap" Mode="Road" Grid.Column="1" Grid.Row="1" ZoomLevel="3" Margin="5" Center="39.41685594755291, -100.80420772503938" CredentialsProvider="wmDPVA9ieovqAKoxMHwk~7uXaUZrUavyrwMM7-s69rQ~ArUBcqwLcVmju1mHC_PmhQm5bZFLaD8Px0pYucc9XQpaNDAqc9F2UWxyLM7cOqRf">
+            
+        </bMap:Map>
         <Button x:Name="ZoomIn" Width="15" Height="15" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="8,0,0,61" Background="SlateGray" BorderBrush="SlateGray" Style="{StaticResource MaterialDesignRaisedDarkButton}" Grid.Column="1" Grid.Row="1" Click="ZoomIn_Click">
             <materialDesign:PackIcon Kind="Add" VerticalAlignment="Center" HorizontalAlignment="Center"  /> 
         </Button>

@@ -58,7 +58,7 @@ namespace Yelp
         /// <returns></returns>
         private string BuildConnectionString()
         {
-            return "Host = localhost; Username = postgres; Database = 'PUT DB NAME HERE'; password = 'PUT PASSWORD HERE'";
+            return "Host = localhost; Username = postgres; Database = DB-NAME; password = DB-PASSWORD";
         }
 
         /// <summary>

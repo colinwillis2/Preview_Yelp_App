@@ -4,179 +4,303 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Yelp"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="Yelp.MainWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:chartingToolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit" x:Class="Yelp.MainWindow" 
         mc:Ignorable="d"
         Title="Yelp" Height="710.833" Width="1156.667">
     <Grid>
         <TabControl>
             <TabItem Header="User Information">
-                <StackPanel>
-                    <Grid Height="auto" Width="auto" Background="#FF80AAD1" Margin="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="50"/>
-                            <RowDefinition Height="230"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="125"/>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <!--Search User-->
-                        <Label Content="Search User" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 2, 0, 0" Grid.ColumnSpan="2" Grid.Row="0" FontSize="10" 
+                <Grid Height="auto" Width="auto" Background="#FF80AAD1" Margin="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="230"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="125"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <!--Search User-->
+                    <Label Content="Search User" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 2, 0, 0" Grid.ColumnSpan="2" Grid.Row="0" FontSize="10" 
                                Background="{x:Null}" Foreground="#DD000000" FontWeight="Bold"/>
-                        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Orientation="Horizontal" Margin="10, 10, 0, 0" >
-                            <StackPanel Grid.RowSpan="2" Grid.ColumnSpan="2" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <TextBox x:Name="SetCurrentUser"  VerticalAlignment="Top" HorizontalAlignment="Center" Height="20" Width="110"  
-                                     Background="White" materialDesign:HintAssist.Hint="Enter User Name" FontSize="10" Padding="1" VerticalContentAlignment="Center" />
-                                <Popup x:Name="listPopup" Visibility="Collapsed" Height="100" StaysOpen="False" Placement="Bottom">
-                                    <ListBox x:Name="idList" Visibility="Collapsed"  Width="110" Height="100" SelectionChanged="idList_SelectionChanged"/>
-                                </Popup>
+                    <StackPanel Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Orientation="Horizontal" Margin="10, 10, 0, 0" >
+                        <StackPanel Grid.RowSpan="2" Grid.ColumnSpan="2" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBox x:Name="SetCurrentUser"  VerticalAlignment="Top" HorizontalAlignment="Center" Height="20" Width="110"  
+                                     Background="White" materialDesign:HintAssist.Hint="Enter User Name" FontSize="10" Padding="1" VerticalContentAlignment="Center"/>
+                            <Popup x:Name="listPopup" Visibility="Collapsed" Height="100" StaysOpen="False" Placement="Bottom">
+                                <ListBox x:Name="idList" Visibility="Collapsed"  Width="110" Height="100" SelectionChanged="idList_SelectionChanged"/>
+                            </Popup>
+                        </StackPanel>
 
-                            </StackPanel>
-
-                            <Button x:Name="searchUserButton" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="60" 
+                        <Button x:Name="searchUserButton" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="60" 
                                 FontSize="12" Margin="15, 0, 0, 0" Foreground="Black" Background="LightGray" BorderThickness="0" Padding="1, 1, 1, 1" Click="searchUserButton_Click"/>
-                        </StackPanel>
-                        <!--Search User-->
+                    </StackPanel>
+                    <!--Search User-->
 
-                        <!--User Information-->
-                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Vertical">
-
-
-                            <Label Content="User Information" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 5, 0, 0" Grid.ColumnSpan="2" Grid.Row="1" FontSize="10"
+                    <!--User Information-->
+                    <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Vertical">
+                        <Label Content="User Information" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 5, 0, 0" Grid.ColumnSpan="2" Grid.Row="1" FontSize="10"
                                Background="{x:Null}" Foreground="#DD000000" FontWeight="Bold" Padding="0"/>
-                            <!--Name-->
-                            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="15, 0, 15, 0" Height="20">
-                                <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
+                        <!--Name-->
+                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="15, 0, 15, 0" Height="20">
+                            <Label Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
                                Background="{x:Null}" Foreground="#D0000000" FontWeight="Bold" Padding="0"/>
-                                <TextBox x:Name="ShowUserName" VerticalAlignment="Center" HorizontalAlignment="Left" Width="150" Height="18" Margin="5, 0, 0, 0" 
+                            <TextBox x:Name="ShowUserName" VerticalAlignment="Center" HorizontalAlignment="Left" Width="150" Height="18" Margin="5, 0, 0, 0" 
                                  Background="White" IsReadOnly="True" VerticalContentAlignment="Center"  Padding="0"/>
-                            </StackPanel>
-                            <!--Name-->
+                        </StackPanel>
+                        <!--Name-->
 
-                            <!--Yelping Since-->
-                            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="15, 3, 15, 0" Height="20">
-                                <Label Content="Yelping Since:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
+                        <!--Yelping Since-->
+                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="15, 3, 15, 0" Height="20">
+                            <Label Content="Yelping Since:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
                                Background="{x:Null}" Foreground="#D0000000" FontWeight="Bold" Padding="0"/>
-                                <TextBox x:Name="DisplayAccountStart" VerticalAlignment="Center" HorizontalAlignment="Left" Width="115" Height="18" Margin="5, 0, 0, 0" 
+                            <TextBox x:Name="DisplayAccountStart" VerticalAlignment="Center" HorizontalAlignment="Left" Width="115" Height="18" Margin="5, 0, 0, 0" 
                                  Background="White" IsReadOnly="True" VerticalContentAlignment="Center" Padding="0" />
-                            </StackPanel>
-                            <!--Yelping Since-->
+                        </StackPanel>
+                        <!--Yelping Since-->
 
-                            <!--Stars and Fans-->
-                            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="15, 3, 15, 0" Height="20">
-                                <Label Content="Stars: " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
+                        <!--Stars and Fans-->
+                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="15, 3, 15, 0" Height="20">
+                            <Label Content="Stars: " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
                                Background="{x:Null}" Foreground="#D0000000" FontWeight="Bold" Padding="0"/>
-                                <TextBox x:Name="DisplayStars" VerticalAlignment="Center" HorizontalAlignment="Left" Width="30" Height="18" Margin="2, 0, 0, 0" 
+                            <TextBox x:Name="DisplayStars" VerticalAlignment="Center" HorizontalAlignment="Left" Width="30" Height="18" Margin="2, 0, 0, 0" 
                                  Background="White" IsReadOnly="True" VerticalContentAlignment="Center" Padding="0"/>
-                                <Label Content="Fans: " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="37,0, 0, 0" FontSize="10"
+                            <Label Content="Fans: " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="37,0, 0, 0" FontSize="10"
                                Background="{x:Null}" Foreground="#D0000000" FontWeight="Bold" Padding="0"/>
-                                <TextBox x:Name="DisplayTotalFans" VerticalAlignment="Center" HorizontalAlignment="Left" Width="30" Height="18" Margin="0, 0, 0, 0" 
+                            <TextBox x:Name="DisplayTotalFans" VerticalAlignment="Center" HorizontalAlignment="Left" Width="30" Height="18" Margin="0, 0, 0, 0" 
                                  Background="White" IsReadOnly="True" VerticalContentAlignment="Center" Padding="0"/>
-                            </StackPanel>
-                            <!--Stars and Fans-->
+                        </StackPanel>
+                        <!--Stars and Fans-->
 
-                            <!--Vote Labels-->
-                            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="15, 3, 5, 0" Height="20">
-                                <Label Content="Funny Votes:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="10"
+                        <!--Vote Labels-->
+                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="15, 3, 5, 0" Height="20">
+                            <Label Content="Funny Votes:" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="10"
                                Background="{x:Null}" Foreground="#D0000000" FontWeight="Bold" Padding="0"/>
-                                <TextBox x:Name="DisplayTotalFunnyVotes" VerticalAlignment="Center" HorizontalAlignment="Left" Width="30" Height="18" Margin="5,0, 10, 0"
+                            <TextBox x:Name="DisplayTotalFunnyVotes" VerticalAlignment="Center" HorizontalAlignment="Left" Width="30" Height="18" Margin="5,0, 10, 0"
                                  Background="White" IsReadOnly="True" VerticalContentAlignment="Center" Padding="0"/>
-                                <Label Content="Cool Votes:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
+                            <Label Content="Cool Votes:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
                                Background="{x:Null}" Foreground="#D0000000" FontWeight="Bold" Padding="0"/>
-                                <TextBox x:Name="DisplayTotalCoolVotes" VerticalAlignment="Center" HorizontalAlignment="Left" Width="30" Height="18" Margin="5,0, 10, 0"
+                            <TextBox x:Name="DisplayTotalCoolVotes" VerticalAlignment="Center" HorizontalAlignment="Left" Width="30" Height="18" Margin="5,0, 10, 0"
                                  Background="White" IsReadOnly="True" VerticalContentAlignment="Center" Padding="0"/>
-                                <Label Content="Useful Votes:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
+                            <Label Content="Useful Votes:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
                                Background="{x:Null}" Foreground="#D0000000" FontWeight="Bold" Padding="0"/>
-                                <TextBox x:Name="DisplayTotalUsefulVotes" VerticalAlignment="Center" HorizontalAlignment="Left" Width="30" Height="18" Margin="5,0, 10, 0"
+                            <TextBox x:Name="DisplayTotalUsefulVotes" VerticalAlignment="Center" HorizontalAlignment="Left" Width="30" Height="18" Margin="5,0, 10, 0"
                                  Background="White" IsReadOnly="True" VerticalContentAlignment="Center" Padding="0"/>
-                            </StackPanel>
-                            <!--Vote Labels-->
+                        </StackPanel>
+                        <!--Vote Labels-->
 
 
-                            <!--Tip Count-->
-                            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="15, 3, 15, 0" Height="20" >
-                                <Label Content="Tip Count:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
+                        <!--Tip Count-->
+                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="15, 3, 15, 0" Height="20" >
+                            <Label Content="Tip Count:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
                                Background="{x:Null}" Foreground="#D0000000" FontWeight="Bold" Padding="0"/>
-                                <TextBox x:Name="DisplayTipCount" VerticalAlignment="Center" HorizontalAlignment="Left" Width="50" Height="18" Margin="21, 0, 0, 0" 
+                            <TextBox x:Name="DisplayTipCount" VerticalAlignment="Center" HorizontalAlignment="Left" Width="50" Height="18" Margin="21, 0, 0, 0" 
                                  Background="White" IsReadOnly="True" VerticalContentAlignment="Center" Padding="0"/>
-                            </StackPanel>
-                            <!--Tip Count-->
+                        </StackPanel>
+                        <!--Tip Count-->
 
-                            <!--Tip Likes-->
-                            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="15, 3, 15, 0" Height="20">
-                                <Label Content="Total Tip Likes:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
+                        <!--Tip Likes-->
+                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="15, 3, 15, 0" Height="20">
+                            <Label Content="Total Tip Likes:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
                                Background="{x:Null}" Foreground="#D0000000" FontWeight="Bold" Padding="0"/>
-                                <TextBox x:Name="DisplayTotalTipLikes" VerticalAlignment="Center" HorizontalAlignment="Left" Width="50" Height="18" Margin="0, 0, 0, 0" 
+                            <TextBox x:Name="DisplayTotalTipLikes" VerticalAlignment="Center" HorizontalAlignment="Left" Width="50" Height="18" Margin="0, 0, 0, 0" 
                                  Background="White" IsReadOnly="True" VerticalContentAlignment="Center" Padding="0"/>
-                            </StackPanel>
-                            <!--Tip Likes-->
+                        </StackPanel>
+                        <!--Tip Likes-->
 
-                            <!--Location-->
-                            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="15, 3, 15, 0" Height="20">
-                                <Label Content="Location:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
+                        <!--Location-->
+                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="15, 3, 15, 0" Height="20">
+                            <Label Content="Location:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
                                Background="{x:Null}" Foreground="#D0000000" FontWeight="Bold" Padding="0"/>
-                                <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal"  Height="20" Margin="13, 0, 0, 0">
-                                    <Label Content="Latitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
+                            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal"  Height="20" Margin="13, 0, 0, 0">
+                                <Label Content="Latitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
                                Background="{x:Null}" Foreground="#D0000000" Padding="0" />
-                                    <TextBox x:Name="DisplayLatCoord" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" Height="18" Margin="5, 0, 0, 0" 
+                                <TextBox x:Name="DisplayLatCoord" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" Height="18" Margin="5, 0, 0, 0" 
                                  Background="White" IsReadOnly="True" VerticalContentAlignment="Center" Padding="0" />
-                                </StackPanel>
                             </StackPanel>
+                        </StackPanel>
 
-                            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="62, 3, 15, 0" Height="20">
-                                <Label Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
+                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="62, 3, 15, 0" Height="20">
+                            <Label Content="Longitude:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
                                Background="{x:Null}" Foreground="#D0000000" Padding="0"/>
-                                <TextBox x:Name="DisplayLongCoord" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" Height="18" Margin="5, 0, 0, 0" 
+                            <TextBox x:Name="DisplayLongCoord" VerticalAlignment="Center" HorizontalAlignment="Left" Width="109" Height="18" Margin="5, 0, 0, 0" 
                                  Background="White" IsReadOnly="True" Padding="0"/>
-                            </StackPanel>
-                            <!--Location-->
+                        </StackPanel>
+                        <!--Location-->
 
-                            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0, 5, 0, 0" >
-                                <Button x:Name="editLocationButton" Content="Edit Location" HorizontalAlignment="Center" VerticalAlignment="Center" Height="18" Width="90"
+                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0, 5, 0, 0" >
+                            <Button x:Name="editLocationButton" Content="Edit Location" HorizontalAlignment="Center" VerticalAlignment="Center" Height="18" Width="90"
                                 FontSize="12" Margin="15, 0, 0, 0" Foreground="Black" Background="LightGray" BorderThickness="0" Padding="5, 1, 5, 1" Click="editLocationButton_Click"/>
-                                <Button x:Name="saveLocationButton" Content="Save Location" HorizontalAlignment="Center" VerticalAlignment="Center" Height="18" Width="90" 
+                            <Button x:Name="saveLocationButton" Content="Save Location" HorizontalAlignment="Center" VerticalAlignment="Center" Height="18" Width="90" 
                                 FontSize="12" Margin="15, 0, 0, 0" Foreground="Black" Background="LightGray" BorderThickness="0" Padding="5, 1, 5, 1" Click="saveLocationButton_Click"/>
-                            </StackPanel>
                         </StackPanel>
-                        <!--User Information-->
+                    </StackPanel>
+                    <!--User Information-->
 
-                        <!--Friends-->
-                        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Vertical" HorizontalAlignment="Stretch">
-                            <Label Content="Friends" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4, 2, 0, 0" Grid.Column="0" Grid.Row="2" FontSize="10" 
+                    <!--Friends-->
+                    <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Vertical" HorizontalAlignment="Stretch">
+                        <Label Content="Friends" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4, 2, 0, 0" Grid.Column="0" Grid.Row="2" FontSize="10" 
                                Background="{x:Null}" Foreground="#DD000000" FontWeight="Bold"/>
-                            <DataGrid x:Name="friendsList" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="220"  IsReadOnly="True" SelectionChanged="businessSearchList_SelectionChanged"
+                        <DataGrid x:Name="friendsList" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="340"  IsReadOnly="True" SelectionChanged="businessSearchList_SelectionChanged"
                                   Background="#FF575757" Foreground="White" HorizontalGridLinesBrush="White" VerticalGridLinesBrush="White" Margin="7, 0, 7, 7" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn>
+                                    <DataGridTextColumn.CellStyle>
+                                        <Style TargetType="{x:Type DataGridCell}">
+                                            <Setter Property="Width" Value="auto"/>
+                                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                                        </Style>
 
-                            </DataGrid>
-                        </StackPanel>
-                        <!--Friends-->
+                                    </DataGridTextColumn.CellStyle>
+                                </DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                    <!--Friends-->
 
-
-
-                        <!--Tip Activity Feed-->
-                        <StackPanel Grid.RowSpan="3" Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Stretch">
-                            <Label Content="Tip Activity Feed" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4, 2, 0, 0" Grid.Column="2" Grid.Row="0" FontSize="10" 
+                    <!--Tip Activity Feed-->
+                    <StackPanel Grid.RowSpan="3" Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Stretch">
+                        <Label Content="Tip Activity Feed" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4, 2, 0, 0" Grid.Column="2" Grid.Row="0" FontSize="10" 
                                    Background="{x:Null}" Foreground="#DD000000" FontWeight="Bold"/>
-                            <DataGrid x:Name="friendsTipList" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="500"  IsReadOnly="True" SelectionChanged="businessSearchList_SelectionChanged"
-                                      Background="#FF575757" Foreground="White" HorizontalGridLinesBrush="White" VerticalGridLinesBrush="White" Margin="7, 0, 7, 7" >
+                        <DataGrid x:Name="friendsTipList" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="621"  IsReadOnly="True" SelectionChanged="businessSearchList_SelectionChanged"
+                                      Background="#FF575757" Foreground="White" HorizontalGridLinesBrush="White" VerticalGridLinesBrush="White" Margin="7,0,6.5,7" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn>
+                                    <DataGridTextColumn.CellStyle>
+                                        <Style TargetType="{x:Type DataGridCell}">
+                                            <Setter Property="Width" Value="auto"/>
+                                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                                        </Style>
 
-                            </DataGrid>
+                                    </DataGridTextColumn.CellStyle>
+                                </DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
 
+                    <!--Tip Activity Feed-->
+
+                    <Border BorderThickness="2" BorderBrush="White" CornerRadius="5" Margin="2" Grid.ColumnSpan="2" Grid.Row="0"/>
+                    <Border BorderThickness="2" BorderBrush="White" CornerRadius="5" Margin="2" Grid.ColumnSpan="2" Grid.Row="1"/>
+                    <Border BorderThickness="2" BorderBrush="White" CornerRadius="5" Margin="2" Grid.Column="2" Grid.RowSpan="3"/>
+                    <Border BorderThickness="2" BorderBrush="White" CornerRadius="5" Margin="2" Grid.ColumnSpan="2" Grid.Row="2"/>
+                </Grid>
+            </TabItem>
+
+
+            <!--Business Owner Information-->
+            <TabItem Header="Business Owner Information">
+                <Grid Height="auto" Width="auto" Background="#FF80AAD1" Margin="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="230"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="125"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Search Business Name-->
+                    <Label Content="Search Business Name" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 2, 0, 0" Grid.ColumnSpan="2" Grid.Row="0" FontSize="10" 
+                               Background="{x:Null}" Foreground="#DD000000" FontWeight="Bold"/>
+                    <StackPanel Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Orientation="Horizontal" Margin="10, 10, 0, 0" >
+                        <StackPanel Grid.RowSpan="2" Grid.ColumnSpan="2" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBox x:Name="CurrentBusiness"  VerticalAlignment="Top" HorizontalAlignment="Center" Height="20" Width="160"  
+                                     Background="White" materialDesign:HintAssist.Hint="Enter Business Name" FontSize="10" Padding="1" VerticalContentAlignment="Center" />
+                            <Popup x:Name="businessListPopup" Grid.RowSpan="2" Grid.ColumnSpan="2" Visibility="Collapsed" Height="200" Width="160" StaysOpen="False" Placement="Bottom">
+                                <ListBox x:Name="bidList" Visibility="Collapsed"   SelectionChanged="bidList_SelectionChanged"/>
+                            </Popup>
                         </StackPanel>
 
-                        <!--Tip Activity Feed-->
+                        <Button x:Name="searchBusinessNameButton" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="60" 
+                                FontSize="12" Margin="15, 0, 0, 0" Foreground="Black" Background="LightGray" BorderThickness="0" Padding="1, 1, 1, 1" Click="searchBusinessNameButton_Click"/>
+                    </StackPanel>
+                    <!--Search Business Name-->
 
-                        <Border BorderThickness="2" BorderBrush="White" CornerRadius="5" Margin="2" Grid.ColumnSpan="2" Grid.Row="0"/>
-                        <Border BorderThickness="2" BorderBrush="White" CornerRadius="5" Margin="2" Grid.ColumnSpan="2" Grid.Row="1"/>
-                        <Border BorderThickness="2" BorderBrush="White" CornerRadius="5" Margin="2" Grid.Column="2" Grid.RowSpan="3"/>
-                        <Border BorderThickness="2" BorderBrush="White" CornerRadius="5" Margin="2" Grid.ColumnSpan="2" Grid.Row="2"/>
+                    <!--Business Information-->
+                    <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Vertical">
+                        <Label Content="Business Owner Information" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 5, 0, 0" Grid.ColumnSpan="2" Grid.Row="1" FontSize="10"
+                               Background="{x:Null}" Foreground="#DD000000" FontWeight="Bold" Padding="0"/>
+                        <!--Name-->
+                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="15, 5, 15, 0" Height="20">
+                            <Label Content="Business Name:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
+                               Background="{x:Null}" Foreground="#D0000000" FontWeight="Bold" Padding="0"/>
+                            <TextBox x:Name="businessName" VerticalAlignment="Center" HorizontalAlignment="Left" Width="150" Height="18" Margin="5, 0, 0, 0" 
+                                 Background="White" IsReadOnly="True" VerticalContentAlignment="Center"  Padding="0"/>
+                        </StackPanel>
+                        <!--Name-->
 
+                        <!--Business Address-->
+                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="15, 5, 15, 0" Height="20">
+                            <Label Content="Address:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
+                               Background="{x:Null}" Foreground="#D0000000" FontWeight="Bold" Padding="0"/>
+                            <TextBox x:Name="businessAddress" VerticalAlignment="Center" HorizontalAlignment="Left" Width="250" Height="18" Margin="5,1,0,1" 
+                                 Background="White" IsReadOnly="True" VerticalContentAlignment="Center" Padding="0" />
+                        </StackPanel>
+                        <!--Business Address-->
 
-                    </Grid>
-                </StackPanel>
+                        <!--Hours-->
+                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="15, 5, 15, 0" Height="20">
+                            <Label Content="Hours: " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
+                               Background="{x:Null}" Foreground="#D0000000" FontWeight="Bold" Padding="0"/>
+                            <TextBox x:Name="businessHoursBox" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100" Height="18" Margin="2,1,0,1" 
+                                 Background="White" IsReadOnly="True" VerticalContentAlignment="Center" Padding="0"/>
+                        </StackPanel>
+                        <!--Hours-->
+
+                        <!--Stars-->
+                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="15, 5, 15, 0" Height="20">
+                            <Label Content="Stars: " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
+                               Background="{x:Null}" Foreground="#D0000000" FontWeight="Bold" Padding="0"/>
+                            <TextBox x:Name="businessStarsBox" VerticalAlignment="Center" HorizontalAlignment="Left" Width="50" Height="18" Margin="2, 0, 0, 0" 
+                                 Background="White" IsReadOnly="True" VerticalContentAlignment="Center" Padding="0"/>
+                        </StackPanel>
+                        <!--Stars-->
+                        <!--Checkins-->
+                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="15, 5, 15, 0" Height="20">
+                            <Label Content="Number of Checkins: " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
+                               Background="{x:Null}" Foreground="#D0000000" FontWeight="Bold" Padding="0"/>
+                            <TextBox x:Name="businessCheckinsBox" VerticalAlignment="Center" HorizontalAlignment="Left" Width="50" Height="18" Margin="0, 0, 0, 0" 
+                                 Background="White" IsReadOnly="True" VerticalContentAlignment="Center" Padding="0"/>
+                        </StackPanel>
+                        <!--Checkins-->
+                        <!--Number of Tips-->
+                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Horizontal" Margin="15, 5, 15, 0" Height="20">
+                            <Label Content="Number of Tips: " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0, 0, 0" FontSize="10"
+                               Background="{x:Null}" Foreground="#D0000000" FontWeight="Bold" Padding="0"/>
+                            <TextBox x:Name="businessTipsBox" VerticalAlignment="Center" HorizontalAlignment="Left" Width="50" Height="18" Margin="0, 0, 0, 0" 
+                                 Background="White" IsReadOnly="True" VerticalContentAlignment="Center" Padding="0"/>
+                        </StackPanel>
+                        <!--Number of Tips-->
+                    </StackPanel>
+                    
+
+                    <Border BorderThickness="2" BorderBrush="White" CornerRadius="5" Margin="2" Grid.ColumnSpan="2" Grid.Row="0"/>
+                    <Border BorderThickness="2" BorderBrush="White" CornerRadius="5" Margin="2" Grid.ColumnSpan="2" Grid.Row="1"/>
+                    <Border BorderThickness="2" BorderBrush="White" CornerRadius="5" Margin="2" Grid.Column="2" Grid.RowSpan="2">
+                        <DataGrid x:Name="businessTipList" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="auto"  IsReadOnly="True" SelectionChanged="businessSearchList_SelectionChanged"
+                                      Background="#FF575757" Foreground="White" HorizontalGridLinesBrush="White" VerticalGridLinesBrush="White" Margin="7,0,6.5,7" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn>
+                                    <DataGridTextColumn.CellStyle>
+                                        <Style TargetType="{x:Type DataGridCell}">
+                                            <Setter Property="Width" Value="auto"/>
+                                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                                        </Style>
+
+                                    </DataGridTextColumn.CellStyle>
+                                </DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Border>
+                    <Border BorderThickness="2" BorderBrush="White" CornerRadius="5" Margin="2" Grid.ColumnSpan="3" Grid.Row="2"/>
+                </Grid>
             </TabItem>
+            <!--Business Information-->
+
 
             <!--Tab Business Search-->
             <TabItem Header="Business Search">
@@ -321,6 +445,8 @@
                         </ComboBox>
                         <ListBox x:Name="Categoies" BorderThickness="1" BorderBrush="Black" Height="100" Width="auto" FontSize="12" Padding="0, 0, 0, 0" Margin="10, 0, 10, 5" 
                                  VerticalContentAlignment="Top" Background="#FF575757" Foreground="White"/>
+                        <ListBox x:Name="Attributes" BorderThickness ="1" BorderBrush="Black" VerticalAlignment="Top" Height="100" Margin="10, 0, 10, 5" Width="auto" RenderTransformOrigin="0.542,0.227"  Background="#FF575757" Foreground="White">
+                        </ListBox>
 
                     </StackPanel>
                     <!--Filter Options-->
@@ -335,25 +461,26 @@
                         <TextBox x:Name="showBusinessAddress" Height="30"  VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Margin="20, 0, 0, 5" Padding="1, 1, 1, 1" 
                                  Background="#FF575757" Foreground="White" materialDesign:HintAssist.Hint="Address" IsReadOnly="True" BorderThickness="1" BorderBrush="Black" />
 
-                        <TextBox x:Name="showBusinessTime" Height="30"  VerticalContentAlignment="Center" HorizontalAlignment="Stretch" Margin="20, 0, 0, 5" Padding="1, 1, 1, 1" 
+                        <TextBox x:Name="showBusinessTime" Height="30"  VerticalContentAlignment="Center" Margin="20, 0, 0, 5" Padding="1, 1, 1, 1" 
                                  Background="#FF575757" Foreground="White" materialDesign:HintAssist.Hint="Hours" IsReadOnly="True" BorderThickness="1" BorderBrush="Black"/>
                     </StackPanel>
-
-                    <Button x:Name="checkinsButton" Content="Show Checkins" Grid.Column="1" Grid.Row="1" 
-                            Width="125" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="309.167,35,279.166,0" Click="checkinsButton_Click"
-                            Foreground="Black" Background="LightGray" BorderBrush="Black"/>
-                    <Button x:Name="tipsButton" Content="Show Tips" Grid.Column="1" Grid.Row="1" 
-                            Width="125" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="309.167,75,279.166,0" Click="tipsButton_Click" 
-                            Foreground="Black" Background="LightGray" BorderBrush="Black"/>
+                    <StackPanel Grid.Row="1" Grid.Column="1" Height="134" Width="155" VerticalAlignment="Top" HorizontalAlignment="Center" Orientation="Vertical" Margin="215,10,399.333,0">
+                        <Button x:Name="checkinsButton" Content="Show Checkins"
+                                Width="125" Padding="0" Margin="5" Click="checkinsButton_Click"
+                                Foreground="Black" Background="LightGray" BorderBrush="Black"/>
+                        <Button x:Name="tipsButton" Content="Show Tips" 
+                                Width="125" Padding="0" Margin="5" Click="tipsButton_Click" 
+                                Foreground="Black" Background="LightGray" BorderBrush="Black"/>
+                        <Button x:Name="mapButton" Content="Show Map" 
+                                Width="125" Padding="0" Margin="5" Click="mapButton_Click" 
+                                Foreground="Black" Background="LightGray" BorderBrush="Black"/>
+                    </StackPanel>
                     <!--Selected Business-->
 
 
                     <Border BorderThickness="2" BorderBrush="White" CornerRadius="5" Margin="2" Grid.Column="0" Grid.RowSpan="2"/>
                     <Border BorderThickness="2" BorderBrush="White" CornerRadius="5" Margin="2" Grid.Column="1"/>
-                    <Border BorderThickness="2" BorderBrush="White" CornerRadius="5" Margin="767.667,20,5,-10" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
-                        <ListBox x:Name="Attributes" BorderThickness ="1" BorderBrush="Black" VerticalAlignment="Top" Height="100" Margin="15.223,487.885,8,0" Width="auto" RenderTransformOrigin="0.542,0.227"  Background="#FF575757" Foreground="White">
-                        </ListBox>
-                    </Border>
+                    <Border BorderThickness="2" BorderBrush="White" CornerRadius="5" Margin="2" Grid.Column="2" Grid.RowSpan="2" />
                     <Border BorderThickness="2" BorderBrush="White" CornerRadius="5" Margin="2" Grid.Column="1" Grid.Row="1"/>
                 </Grid>
             </TabItem>
